@@ -1,5 +1,7 @@
-let a = Number;
-let b = Number;
+let a = null;
+let b = null;
+let result = null;
+let operator = "";
 
 function add(a,b) {
     return a + b;
@@ -17,8 +19,13 @@ function devide(a,b) {
     return a / b;
 };
 
-function operate(operator, a,b) {
-   return operator(a,b);
+function operate(operator,a,b) {
+    switch (operator) {
+        case "add" : result = add(a,b); break ;
+        case "substract" : result = substract(a,b); break ;
+        case "multiply" : result = multiply(a,b); break ;
+        case "devide" : result = devide(a,b); break ;
+    }
 };
 
 const display = document.querySelector('.display');
@@ -28,19 +35,42 @@ let operatorCalled = false;
 console.log(operatorCalled);
 operatorBtn.forEach(btn => {
     btn.addEventListener('click', () => {
-    operatorCalled = true;
-    console.log(operatorCalled);
+    if(btn.textContent != "="){
+        operatorCalled = true;
+        display.textContent = null;
+        if (btn.textContent === "+") { 
+            operator = "add";
+        } else if (btn.textContent === "-") {
+            operator = "substract";
+        } else if (btn.textContent === "*" ){
+            operator = "multiply";
+        } else {
+            operator = "devide";
+        };
+        console.log(operator);
+    } else {
+        operate(operator,a,b);
+        console.log(operator,a,b);
+        console.log(result);
+        display.textContent = result;
+    }
     });
     
 });
 
 
-
 function populateDisplay() {
     digitBtn.forEach(btn => {
         btn.addEventListener("click", () => {
-           display.textContent += btn.textContent;
-        })   
+            if (operatorCalled === false) {
+              a = display.textContent += btn.textContent;
+              console.log('value of A is: ',a);
+            } else {
+                b = display.textContent += btn.textContent;
+                console.log('value of B is: ',b);
+            }
+        });
+
     });
 };
 
