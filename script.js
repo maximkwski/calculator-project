@@ -45,24 +45,19 @@ operatorBtn.forEach(btn => {
         operatorCalled = true;
         // display.textContent = null;
         if (btn.textContent === "+") { 
+            calculateMore(); // if  use a  operator again to render result
             operator = "add";
-            if (b != null) {
-                operate(operator,a,b);
-                console.log(operator,a,b);
-                console.log("result for now is :", result);
-                a = result;
-                b = null;
-                display.textContent = a;
-
-            }
             
-            
-
         } else if (btn.textContent === "-") {
+            calculateMore();
             operator = "substract";
+
         } else if (btn.textContent === "*" ){
+            calculateMore(); 
             operator = "multiply";
-        } else {
+
+        } else { // devide
+            calculateMore(); 
             operator = "devide";
         };
         console.log(operator);
@@ -91,7 +86,7 @@ function populateDisplay() {
                 }
                 b = display.textContent += btn.textContent;
 
-                console.log('value of a is: ',a);
+                console.log('value of A is: ',a);
                 console.log('value of B is: ',b);
                 
             }
@@ -99,5 +94,17 @@ function populateDisplay() {
 
     });
 };
+
+function calculateMore() { // render result when operator clicked
+    if (b != null) {
+        operate(operator,a,b);
+        console.log(operator,a,b);
+        console.log("result for now is :", result);
+        a = result;
+        b = null;
+        display.textContent = a;
+        
+    };
+}
 
 populateDisplay();
