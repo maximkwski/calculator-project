@@ -36,7 +36,8 @@ const display = document.querySelector('.display');
 const digitBtn = Array.from(document.querySelectorAll('.digits button'));
 const operatorBtn = Array.from(document.querySelectorAll('.operators button'));
 const resetBtn = document.querySelector('.reset');
-const decimalBtn = document.querySelector('.decimal')
+const decimalBtn = document.querySelector('.decimal');
+const deleteBtn = document.querySelector('.delete');
 let operatorCalled = false;
 
 operatorBtn.forEach(btn => {
@@ -63,17 +64,16 @@ operatorBtn.forEach(btn => {
         console.log(operator);
     } else {
         if (a === null || b === null) {
-            display.textContent = 0;
+            resetAll(); // reset values when clicked '=' second time
         } else {
             operate(operator,a,b);
             console.log(operator,a,b);
-        
-            display.textContent = result;
-
+            a = result;
+            b = null;
+            display.textContent = a;
         }
     }
-    });
-    
+    });   
 });
 
 function populateDisplay() {
@@ -125,13 +125,36 @@ function calculateMore() { // render result when operator clicked
     };
 }
 
-resetBtn.addEventListener("click", () => {
- operatorCalled = false;   
- a = null;
- b = null;
- result = null;
- operator = "";
- display.textContent = 0;
-})
+resetBtn.addEventListener("click", () => { // reset all values when AC button clicked
+    resetAll();
+});
+
+function resetAll() {
+    operatorCalled = false;   
+    a = null;
+    b = null;
+    result = null;
+    operator = "";
+    display.textContent = 0;
+}
+
+deleteBtn.addEventListener("click", () => { // erase last char
+    if (operatorCalled === false) {
+        deleteChar();
+        a = display.textContent; // and asign new val to A
+    } else {
+        deleteChar();
+        b = display.textContent; // or asign val to B
+    }
+});
+
+function deleteChar() { 
+    if (display.textContent != null && display.textContent != 0) {
+        display.textContent = display.textContent.substring(0, display.textContent.length - 1);
+        if (display.textContent === "") {
+            display.textContent = 0;
+        };
+    };
+};
 
 populateDisplay();
