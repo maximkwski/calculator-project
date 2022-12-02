@@ -21,13 +21,13 @@ function devide(a,b) {
 
 function operate(operator,a,b) {
     switch (operator) {
-        case "add" : result = add(a,b);
+        case "add" : result = Math.round((add(a,b)) * 100000) / 100000;
         break ;
-        case "substract" : result = substract(a,b); 
+        case "substract" : result = Math.round((substract(a,b)) * 100000) / 100000; 
         break ;
-        case "multiply" : result = multiply(a,b); 
+        case "multiply" : result = Math.round((multiply(a,b)) * 100000) / 100000; 
         break ;
-        case "devide" : result = devide(a,b); 
+        case "devide" : result = Math.round((devide(a,b)) * 100000) / 100000; 
         break ;
     }
 };
@@ -101,13 +101,15 @@ function populateDisplay() {
     });
 };
 
-decimalBtn.addEventListener("click", () => {
+decimalBtn.addEventListener("click", () => { //floating point numbers
     if (operatorCalled === false) {
         if (!display.textContent.includes(".")) {
            a = display.textContent += decimalBtn.textContent;
         }
     } else {
-        b = display.textContent += decimalBtn.textContent;
+        if (!display.textContent.includes(".")) {
+            b = display.textContent += decimalBtn.textContent;
+        }
     }
 });
 
