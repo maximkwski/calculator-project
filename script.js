@@ -53,7 +53,7 @@ operatorBtn.forEach(btn => {
             calculateMore();
             operator = "substract";
 
-        } else if (btn.textContent === "*" ){
+        } else if (btn.textContent === "x" ){
             calculateMore(); 
             operator = "multiply";
 
